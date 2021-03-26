@@ -1,6 +1,6 @@
 {
   "name": "sanwa_che-tphu5",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "index.js",
   "devDependencies": {},
@@ -30,12 +30,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mizuka-ninomae/homebridge-che-tphu5.git"
+    "url": "git+https://github.com/mizuka-ninomae/sanwa_che-tphu5.git"
   },
   "author": "mizuka-ninomae",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mizuka-ninomae/homebridge-che-tphu5/issues"
+    "url": "https://github.com/mizuka-ninomae/sanwa_che-tphu5/issues"
   },
-  "homepage": "https://github.com/mizuka-ninomae/homebridge-che-tphu5#readme"
+  "homepage": "https://github.com/mizuka-ninomae/sanwa_che-tphu5#readme"
 }

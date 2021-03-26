@@ -1,4 +1,5 @@
 const child_process = require ('child_process');
+const path          = require ('path');
 const AsyncLock     = require ('async-lock');
 
 let   te_val, hu_val, li_val, bt_val;
@@ -13,7 +14,7 @@ class CHE_TPHU5 {
 
       noble_ctl.on ('message', function (json) {
         noble_ctl.kill ('SIGINT');
-        let data = new Uint8Array (json.message.advertisement.manufacturerData.data);
+        let data = new Uint8Array (json.message.manufacturerData.data);
         let temp = data[1] - 40;
         te_val   = temp < 0 ? temp + data[2] * -1 * 0.1 : temp + data[2] * 0.1;
         hu_val   = data[3];

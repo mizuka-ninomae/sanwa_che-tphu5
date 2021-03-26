@@ -13,7 +13,7 @@ process.on ('message', function (blu_mac) {
   noble.on ('discover', function (peripheral) {
     if (blu_mac.toUpperCase ().replace (/:/g,"") == peripheral.address.toUpperCase ().replace (/:/g,"")) {
       noble.stopScanning ();
-      process.send ({ message: peripheral });
+      process.send ({ message: peripheral.advertisement });
     }
   })
 })

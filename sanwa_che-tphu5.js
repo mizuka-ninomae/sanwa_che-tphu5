@@ -2,15 +2,17 @@ const child_process = require ('child_process');
 const path          = require ('path');
 const AsyncLock     = require ('async-lock');
 
+const s_uuid = [];
 let   te_val, hu_val, li_val, bt_val;
 
 class CHE_TPHU5 {
-  constructor (blu_mac, noble_ctl_path = '/usr/local/lib/node_modules/', callback) {
+  constructor (ble_mac, noble_ctl_path = '/usr/local/lib/node_modules/', callback) {
     const lock = new AsyncLock ();
     lock.acquire ('noble_key', function () {
       const noble_ctl = child_process.fork (path.join (noble_ctl_path, 'noble_ctl.js'));
+      const obj = { s_uuid: s_uuid, ble_mac: ble_mac }
 
-      noble_ctl.send (blu_mac);
+      noble_ctl.send (obj);
 
       noble_ctl.on ('message', function (json) {
         noble_ctl.kill ('SIGINT');

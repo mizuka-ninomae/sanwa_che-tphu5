@@ -1,6 +1,6 @@
 {
   "name": "sanwa_che-tphu5",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "description": "",
   "main": "index.js",
   "devDependencies": {},
@@ -19,7 +19,6 @@
     "path": "^0.12.7"
   },
   "keywords": [
-    "homebridge-plugin",
     "CHE_TPHU5",
     "CHE-TPHU5",
     "Ambient",

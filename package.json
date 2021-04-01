@@ -1,6 +1,6 @@
 {
   "name": "sanwa_che-tphu5",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "",
   "main": "index.js",
   "devDependencies": {},
@@ -15,6 +15,7 @@
   "dependencies": {
     "@abandonware/noble": "^1.9.2-12",
     "async-lock": "^1.2.8",
+    "bluez": "^0.4.1",
     "child_process": "^1.0.2",
     "path": "^0.12.7"
   },

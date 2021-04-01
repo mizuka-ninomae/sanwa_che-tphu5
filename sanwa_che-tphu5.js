@@ -3,30 +3,28 @@ const path          = require ('path');
 const AsyncLock     = require ('async-lock');
 
 const s_uuid = [];
-let   te_val, hu_val, li_val, bt_val;
 
 class CHE_TPHU5 {
-  constructor (ble_mac, noble_ctl_path = '/usr/local/lib/node_modules/', callback) {
+  constructor (ble_mac, ble_ctl_path = '/usr/local/lib/node_modules/', callback) {
     const lock = new AsyncLock ();
-    lock.acquire ('noble_key', function () {
-      const noble_ctl = child_process.fork (path.join (noble_ctl_path, 'noble_ctl.js'));
-      const obj = { s_uuid: s_uuid, ble_mac: ble_mac }
+    lock.acquire ('ble_key', function () {
+      const ble_ctl = child_process.fork (path.join (ble_ctl_path, 'noble_ctl.js'));
 
-      noble_ctl.send (obj);
+      ble_ctl.send (ble_mac);
 
-      noble_ctl.on ('message', function (json) {
-        noble_ctl.kill ('SIGINT');
-        let data = new Uint8Array (json.message.manufacturerData.data);
-        let temp = data[1] - 40;
-        te_val   = temp < 0 ? temp + data[2] * -1 * 0.1 : temp + data[2] * 0.1;
-        hu_val   = data[3];
-        li_val   = data[4] * 256 + data[5];
-        bt_val   = data[20];
-        callback (null, {te: te_val, hu: hu_val, li: li_val, bt: bt_val});
+      ble_ctl.on ('message', function (json) {
+        ble_ctl.kill ('SIGINT');
+        let temp = json.message.manufacturerData.data[1] - 40;
+        callback (null, {
+          te: temp < 0 ? temp + (json.message.manufacturerData.data[2] * 0.1) * -1 : temp + (json.message.manufacturerData.data[2] * 0.1),
+          hu: json.message.manufacturerData.data[3],
+          li: json.message.manufacturerData.data[4] * 256 + json.message.manufacturerData.data[5],
+          bt: json.message.manufacturerData.data[20]
+        });
         return;
       }.bind (this))
 
-      noble_ctl.on ('error', function (error) {
+      ble_ctl.on ('error', function (error) {
         callback (error, null);
         return;
       }.bind(this));
